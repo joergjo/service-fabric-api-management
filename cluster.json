@@ -177,6 +177,13 @@
       "metadata": {
         "description": "Instance count for node type"
       }
+    },
+    "sfReverseProxyPort": {
+      "type": "int",
+      "defaultValue": 19081,
+      "metadata": {
+          "description": "Endpoint for Service Fabric Reverse proxy"
+      }
     }
   },
   "variables": {
@@ -216,7 +223,7 @@
     "lbHttpProbeID0": "[concat(variables('lbID0'),'/probes/FabricHttpGatewayProbe')]",
     "lbNatPoolID0": "[concat(variables('lbID0'),'/inboundNatPools/LoadBalancerBEAddressNatPool')]",
     "vmNodeType0Name": "[toLower(concat('NT1', variables('vmName')))]",
-    "vmNodeType0Size": "Standard_D2",
+    "vmNodeType0Size": "Standard_D2_v2",
     "vmStorageAccountName0": "[toLower(concat(uniqueString(resourceGroup().id), '1', '0' ))]",
     "uniqueStringArray0": [
       "[concat(variables('vmStorageAccountName0'), '0')]",
@@ -818,7 +825,8 @@
             },
             "httpGatewayEndpointPort": "[variables('nt0fabricHttpGatewayPort')]",
             "isPrimary": true,
-            "vmInstanceCount": "[parameters('nt0InstanceCount')]"
+            "vmInstanceCount": "[parameters('nt0InstanceCount')]",
+            "reverseProxyEndpointPort": "[parameters('sfReverseProxyPort')]"
           }
         ],
         "provisioningState": "Default",
